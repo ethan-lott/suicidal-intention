@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Wellness Nudge</title>
+    </head>
 
-<head>
-    <title>Form</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
+    <body>
+        <h1>Who would you like to check in on today?</h1>
 
-<body>
-    <h1>Text Input Form</h1>
-    <form>
-        <label for="text-input">Enter text:</label>
-        <input type="text" id="text-input" name="text-input"><br><br>
-        <input type="button" value="Submit" onclick="submitForm()">
-    </form>
-    <br>
-    <div id="result"></div>
+        <form>
+            <label for="text-input">Enter twitter handle:</label>
+            <input type="text" id="text-input" name="text-input"><br><br>
+            <input type="button" value="Submit" onclick="submitForm()">
+        </form>
+
+        <h2>Results</h2>
+        <h3>{{output_text}}</h3>
+    </body>
+
+
 
     <script>
         function submitForm() {
@@ -31,5 +34,6 @@
             xhr.send(JSON.stringify({ "input_text": textInput }));
         }
     </script>
-</body>
+
+
 </html>

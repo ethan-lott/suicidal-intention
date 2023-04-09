@@ -8,6 +8,7 @@ import snscrape.modules.twitter as sntwitter
 sntwitter.TwitterSearchScraper('from:twitter').get_items()
 
 tweets = []
+handle 
 
 for i, tweet in enumerate(sntwitter.TwitterSearchScraper('from:fabrizioromano').get_items()):
     data = [
