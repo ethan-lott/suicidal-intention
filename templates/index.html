@@ -1,25 +1,44 @@
 <!DOCTYPE html>
 <html>
-    <head>
+  <head>
         <title>Wellness Nudge</title>
         <link href="{{ url_for('static',filename='styles/style.css') }}" rel="stylesheet" type="text/css" href="style.css">
+        <style>
+            #gradient-rect {
+              background: linear-gradient(to left, red, white, green);
+              height: 50px;
+              width: 300px;
+              position: relative;
+              margin: 20px auto;
+            }
+            #score-bar {
+              background-color: blue;
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: calc(var(--score) - 1%);
+              width: 2%;
+              transition: width 0.5s;
+            }
+            #score-label {
+              margin-top: 10px;
+              font-size: 20px;
+              text-align: center;
+            }
+        </style>
     </head>
-
     <body>
         <h1>Who would you like to check in on today?<br></h1>
-        
         <form method = "POST">
             <label for="user_input">Enter twitter handle:</label>
             <input type="text" id="user_input" name="user_input"><br><br>
             <input type="submit" value="Submit">
         </form>
-        
         <h2>Results</h2>
-        <div id="output">
-            {% if output %}
-                <p>{{ output }}</p>
-            {% endif %}
-        </div>
-    </body>
 
+        <div id="gradient-rect">
+            <div id="score-bar" style="--score: {{ output }}%;"></div>
+        </div>
+        <div id="score-label">Risk factor: <span id="score-display">{{ output }}%</span></div>
+    </body>
 </html>
