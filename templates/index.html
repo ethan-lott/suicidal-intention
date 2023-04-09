@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Text Input Form</title>
+</head>
+<body>
+    <h1>Text Input Form</h1>
+    <form>
+        <label for="text-input">Enter text:</label>
+        <input type="text" id="text-input" name="text-input"><br><br>
+        <input type="button" value="Submit" onclick="submitForm()">
+    </form>
+    <br>
+    <div id="result"></div>
+
+    <script>
+        function submitForm() {
+            var textInput = document.getElementById("text-input").value;
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/process_input", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    var result = JSON.parse(this.responseText);
+                    document.getElementById("result").innerHTML = result.output;
+                }
+            }
+            xhr.send(JSON.stringify({ "input_text": textInput }));
+        }
+    </script>
+</body>
+</html>
