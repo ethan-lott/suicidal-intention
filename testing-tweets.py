@@ -7,7 +7,7 @@ import requests
 import math
 
 API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
-API_TOKEN = "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"
+API_TOKEN = "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"
 
 NUM_TWEETS = 50
 
@@ -22,24 +22,24 @@ def query(payload):
 sntwitter.TwitterSearchScraper('from:twitter').get_items()
 tweets = []
 
-for i, tweet in enumerate(sntwitter.TwitterSearchScraper('from:yellowhiper').get_items()):
+for i, tweet in enumerate(sntwitter.TwitterSearchScraper('from:proclubwhitetee').get_items()):
     data = [
-        tweet.date,
-        tweet.id,
-        tweet.content,
-        tweet.user.username,
-        tweet.user.displayname,
-        tweet.user.description,
-        tweet.user.location,
-        tweet.user.followersCount,
-        tweet.user.friendsCount,
-        tweet.user.verified
+        # tweet.date,
+        # tweet.id,
+        tweet.rawContent,
+        # tweet.user.username,
+        # tweet.user.displayname,
+        # tweet.user.description,
+        # tweet.user.location,
+        # tweet.user.followersCount,
+        # tweet.user.friendsCount,
+        # tweet.user.verified
     ]
     tweets.append(data)
     if i>NUM_TWEETS:
         break
 
-tweet_df = pd.DataFrame(tweets, columns=['Datetime', 'Tweet Id', 'Text', 'Username', 'Display Name', 'Bio', 'Location', 'Followers', 'Following', 'Verified'])
+tweet_df = pd.DataFrame(tweets, columns=['Text'])
 recent_tweets = np.array(tweet_df['Text'])
 
 escapes = ''.join([chr(char) for char in range(1, 32)])
@@ -80,7 +80,6 @@ for tweet in recent_tweets:
      tweet_check = query({"inputs": tweet})[0]
      if tweet_check[0]['label'] == "NEGATIVE" and tweet_check[0]['score'] > 0.85:
           suicide_score += 1
-     # print(tweet, "\n", tweet_check)
 
 suicide_score /= NUM_TWEETS
 print("Suicide risk: ", suicide_score)
