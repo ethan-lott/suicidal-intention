@@ -1,8 +1,15 @@
 body {
+    margin-top: 10%;
     background-color: steelblue;
     font-size: 24px;
     font-family: sans-serif;
     text-align: center;
     align-items: center;
     height: 100%;
+}
+input[type="text"], input[type="submit"] {
+    width: 300px; /* Adjust the width to your liking */
+    height: 50px; /* Adjust the height to your liking */
+    font-size: 24px; /* Maintain the same font size as the body */
+    font-family: sans-serif; /* Maintain the same font family as the body */
 }

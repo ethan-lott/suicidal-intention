@@ -54,13 +54,17 @@ def clean_tweets(tweets):
     return tweets
 
 def calculate_score(tweets, API_URL, headers, NUM_TWEETS):
+    num_used = NUM_TWEETS
     suicide_score = 0
     for tweet in tweets:
-        tweet_check = query({"inputs": tweet}, API_URL, headers)[0]
-        if tweet_check[0]['label'] == "NEGATIVE" and tweet_check[0]['score'] > 0.85:
-            suicide_score += 1
+        if len(tweet) < 10:
+            num_used -= 1
+        else:
+            tweet_check = query({"inputs": tweet}, API_URL, headers)[0]
+            if tweet_check[0]['label'] == "NEGATIVE" and tweet_check[0]['score'] > 0.85:
+                suicide_score += 1
 
-    suicide_score /= NUM_TWEETS
+    suicide_score /= num_used
     return suicide_score
 
 def main(twit_handle, NUM_TWEETS):
