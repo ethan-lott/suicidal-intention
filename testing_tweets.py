@@ -69,7 +69,7 @@ def calculate_score(tweets, API_URL, headers, NUM_TWEETS):
 
 def main(twit_handle, NUM_TWEETS):
     API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
-    API_TOKEN = "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"
+    API_TOKEN = "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"
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
     # twit_handle = 'proclubwhitetee'
 

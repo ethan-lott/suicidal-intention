@@ -7,7 +7,7 @@ app = Flask(__name__)
 def process_input(input_text):
 
     # Process the input text and generate the output text
-    risk_factor = tt.main(input_text, 20)
+    risk_factor = tt.main(input_text, 50)
     output_text = f'@{input_text}\'s risk factor: {risk_factor}'
     
     # Return the output text as a JSON response
