@@ -6,8 +6,6 @@ import snscrape.modules.twitter as sntwitter
 import requests
 import math
 
-
-
 def query(payload, API_URL, headers):
 	response = requests.post(API_URL, headers=headers, json=payload)
 	return response.json()
@@ -67,7 +65,7 @@ def calculate_score(tweets, API_URL, headers, NUM_TWEETS):
 
 def main(twit_handle, NUM_TWEETS):
     API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
-    API_TOKEN = "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"
+    API_TOKEN = "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"
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
     # twit_handle = 'proclubwhitetee'
 
