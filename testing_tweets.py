@@ -74,5 +74,3 @@ def main(twit_handle, NUM_TWEETS):
     suicide_score = calculate_score(recent_tweets, API_URL, headers, NUM_TWEETS)
 
     return suicide_score
-
-#print("Suicide risk: ", suicide_score)

@@ -2,17 +2,18 @@
 <html>
     <head>
         <title>Wellness Nudge</title>
+        <link href="{{ url_for('static',filename='styles/style.css') }}" rel="stylesheet" type="text/css" href="style.css">
     </head>
 
     <body>
-        <h1>Who would you like to check in on today?</h1>
-
+        <h1>Who would you like to check in on today?<br></h1>
+        
         <form method = "POST">
             <label for="user_input">Enter twitter handle:</label>
             <input type="text" id="user_input" name="user_input"><br><br>
             <input type="submit" value="Submit">
         </form>
-
+        
         <h2>Results</h2>
         <div id="output">
             {% if output %}
