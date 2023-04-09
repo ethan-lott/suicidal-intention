@@ -3,13 +3,26 @@ import numpy as np
 import re
 from tqdm.notebook import tqdm
 import snscrape.modules.twitter as sntwitter
+import requests
+import math
+
+API_URL = "https://api-inference.huggingface.co/models/distilbert-base-uncased-finetuned-sst-2-english"
+API_TOKEN = "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"
+
+NUM_TWEETS = 50
+
+headers = {"Authorization": f"Bearer {API_TOKEN}"}
+
+def query(payload):
+	response = requests.post(API_URL, headers=headers, json=payload)
+	return response.json()
+
 
 # Scrape the most recent 50 tweets from the user 'twitter'
 sntwitter.TwitterSearchScraper('from:twitter').get_items()
-
 tweets = []
 
-for i, tweet in enumerate(sntwitter.TwitterSearchScraper('from:fabrizioromano').get_items()):
+for i, tweet in enumerate(sntwitter.TwitterSearchScraper('from:yellowhiper').get_items()):
     data = [
         tweet.date,
         tweet.id,
@@ -23,7 +36,7 @@ for i, tweet in enumerate(sntwitter.TwitterSearchScraper('from:fabrizioromano').
         tweet.user.verified
     ]
     tweets.append(data)
-    if i>50:
+    if i>NUM_TWEETS:
         break
 
 tweet_df = pd.DataFrame(tweets, columns=['Datetime', 'Tweet Id', 'Text', 'Username', 'Display Name', 'Bio', 'Location', 'Followers', 'Following', 'Verified'])
@@ -61,4 +74,13 @@ for i in range(len(recent_tweets)):
     tweet = emoji_pattern.sub(r'', tweet)
     recent_tweets[i] = tweet
 
-print(recent_tweets)
+suicide_score = 0
+
+for tweet in recent_tweets:
+     tweet_check = query({"inputs": tweet})[0]
+     if tweet_check[0]['label'] == "NEGATIVE" and tweet_check[0]['score'] > 0.85:
+          suicide_score += 1
+     # print(tweet, "\n", tweet_check)
+
+suicide_score /= NUM_TWEETS
+print("Suicide risk: ", suicide_score)
